@@ -7,7 +7,8 @@ App.Config.Game = {
             parents: [],
             bonus: 0.01,
             effects: [
-                "draw-wind-turbine"
+                "draw-wind-turbine",
+                "draw-unicorn"
             ]
         },
         {
@@ -90,5 +91,19 @@ App.Config.Game = {
                 "draw-wind-turbine"
             ]
         },
-    ]
+    ],
+    stuff: {
+        Windturbine: {
+            "width": 5,
+            "height": 5,
+            "model": "WindTurbine",
+            "modelDirectory": "asset/model/stuff/"
+        },
+        Unicorn: {
+            "width": 2,
+            "height": 1,
+            "model": "Unicorn",
+            "modelDirectory": "asset/model/stuff/"
+        }
+    }
 }

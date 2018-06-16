@@ -5,7 +5,7 @@
  * @class App.Object
  * @constructor
  */
-App.Object = function(config, scene, assetsManager, shadowGenerator){
+App.Object = function(config, scene, assetsManager){
 
     /**
      * Scene instance
@@ -34,13 +34,6 @@ App.Object = function(config, scene, assetsManager, shadowGenerator){
      * @private
      */
     var _assetsManager = assetsManager;
-
-    /**
-     * Shadow generator instance
-     * @type {BABYLON.ShadowGenerator}
-     * @private
-     */
-    var _shadowGenerator = shadowGenerator;
 
     /**
      * Position

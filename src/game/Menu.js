@@ -15,19 +15,28 @@ App.Menu = function(){
     var _menuState = MenuState.Hidden;
 
     /**
+     * GUI instance
+     * @type {BABYLON.GUI.AdvancedDynamicTexture}
+     * @private
+     */
+    var _gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");;
+
+    /**
      * @method App.Menu#Init
      * @public
      * @return {void}
      */
     this.Init = function() {
+        console.log("GUI menu loaded");
     }
 
     /**
      * @method App.Menu#Update
+     * @param {App.Player} player
      * @public
      * @return {void}
      */
-    this.Update = function() {
+    this.Update = function(player) {
     }
 
     /**

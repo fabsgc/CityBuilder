@@ -112,6 +112,8 @@ App.Game = function(){
         _scene = new BABYLON.Scene(_engine);
         _assetsManager = new BABYLON.AssetsManager(_scene);
 
+        CreateScene();
+
         _player = new App.Player();
         _player.Init();
 
@@ -121,7 +123,8 @@ App.Game = function(){
         _hud = new App.Hud();
         _hud.Init();
 
-        CreateScene();
+        window.addEventListener("openMenu", OpenMenuHandler);
+        window.addEventListener("closeMenu", CloseMenuHandler);
 
         /*_assetsManager.onFinish = function (tasks) {
             _assetsManager.useDefaultLoadingScreen = false;
@@ -131,6 +134,7 @@ App.Game = function(){
         _engine.runRenderLoop(RenderLoop);
 
         window.addEventListener("resize", ResizeHandler);
+        //var music = new BABYLON.Sound("Music", "asset/sound/music.mp3", _scene, null, { loop: true, autoplay: true });
     }
 
     function CreateScene() {
@@ -154,12 +158,12 @@ App.Game = function(){
         light.intensity = 1;
 
         /*_mapConfig.forEach(function(element) {
-            var obj = new App.Object(element, _scene, _assetsManager, _shadowGenerator);
+            var obj = new App.Object(element, _scene, _assetsManager);
             obj.Init();
             _objects.push(obj);
-        });*/
+        });
 
-        //_assetsManager.load();
+        _assetsManager.load();*/
     }
 
     function RenderLoop() {
@@ -167,18 +171,23 @@ App.Game = function(){
             case GameState.InGame:
                 if(_player.IsAlive()) {
                     _player.Update();
-                    _hud.Update();
 
+                    _hud.Update(_player);
                     _hud.Draw();
+
+                    _menu.Clear();
                 }
                 else {
                     _hud.Clear();
+                    _menu.Clear();
                 }
             break;
 
             case GameState.InMenu:
-                _menu.Update();
+                _menu.Update(_player);
                 _menu.Draw();
+
+                _hud.Clear();
             break;
 
             case GameState.Lose:
@@ -187,17 +196,42 @@ App.Game = function(){
             break;
         }
 
-        if(_player.IsAlive()) {
-            _player.Update();
-        }
-        else {
-            //TODO : Lose
-        }
-
         _scene.render();
     }
 
+    /**
+     * @method App.Game#ResizeHandler
+     * @param {Event} e
+     * @private
+     * @return {void}
+     */
     function ResizeHandler() {
         _engine.resize();
+    }
+
+    /**
+     * @method App.Game#OpenMenuHandler
+     * @param {CustomEvent} e
+     * @private
+     * @return {void}
+     */
+    function OpenMenuHandler(e) {
+        console.log("Open menu handler");
+        _hud.SetState(HudState.Hidden);
+        _menu.SetState(MenuState.Visible);
+        _gameState = GameState.InMenu;
+    }
+
+    /**
+     * @method App.Game#CloseMenuHandle
+     * @param {CustomEvent} e
+     * @private
+     * @return {void}
+     */
+    function CloseMenuHandler(e) {
+        console.log("Close menu handler");
+        _hud.SetState(HudState.Visible);
+        _menu.SetState(MenuState.hidden);
+        _gameState = GameState.InGame;
     }
 }

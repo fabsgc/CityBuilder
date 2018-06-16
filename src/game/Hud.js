@@ -50,8 +50,16 @@ App.Hud = function(){
         _elements.skills.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
         _elements.skills.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         _elements.skills.onPointerClickObservable.add(function() {
-            var event = new CustomEvent("openMenu", {});
-            window.dispatchEvent(event);
+            ChangeMenuIcon();
+
+            if(_hudState == HudState.Visible) {
+                var event = new CustomEvent("openMenu", {});
+                window.dispatchEvent(event);
+            }
+            else {
+                var event = new CustomEvent("closeMenu", {});
+                window.dispatchEvent(event);
+            }
         });
         gui.addControl(_elements.skills);        
 
@@ -143,5 +151,19 @@ App.Hud = function(){
      */
     this.GetState = function() {
         return _hudState;
+    }
+
+    /**
+     * @method App.Hud#ChngeMenuIcon
+     * @private
+     * @return {void}
+     */
+    function ChangeMenuIcon() {
+        if(_hudState == HudState.Visible) {
+            _elements.skills.source = "asset/gui/close.png";
+        }
+        else {
+            _elements.skills.source = "asset/gui/search_128.png";
+        }
     }
 }

@@ -74,7 +74,7 @@ App.Game = function(){
      * @type {GameState}
      * @private
      */
-    var _gameState = GameState.InMenu;
+    var _gameState = GameState.InGame;
 
     /**
      * Player instance
@@ -117,11 +117,11 @@ App.Game = function(){
         _player = new App.Player();
         _player.Init();
 
-        _menu = new App.Menu();
-        _menu.Init();
-
         _hud = new App.Hud();
         _hud.Init();
+
+        _menu = new App.Menu(_player);
+        _menu.Init();
 
         window.addEventListener("openMenu", OpenMenuHandler);
         window.addEventListener("closeMenu", CloseMenuHandler);
@@ -184,10 +184,12 @@ App.Game = function(){
             break;
 
             case GameState.InMenu:
+                _player.Update();
+
                 _hud.Update(_player);
                 _hud.Draw();
 
-                _menu.Update(_player);
+                _menu.Update();
                 _menu.Draw();
             break;
 

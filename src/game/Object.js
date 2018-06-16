@@ -41,6 +41,13 @@ App.Object = function(config, scene, assetsManager, shadowGenerator){
      * @private
      */
     var _shadowGenerator = shadowGenerator;
+
+    /**
+     * Position
+     * @type {BABYLON.ShadowGenerator}
+     * @private
+     */
+    var _position = {x: 0, y:0};
     
     /**
      * @method App.Object#Init
@@ -69,6 +76,15 @@ App.Object = function(config, scene, assetsManager, shadowGenerator){
     }
 
     /**
+     * @method App.Object#GetPosition
+     * @public
+     * @return {Object}
+     */
+    this.GetPosition = function() {
+        return _position;
+    }
+
+    /**
      * @method App.Object#OnLoader
      * @param {BABYLON.MeshTask} task
      * @public
@@ -76,12 +92,17 @@ App.Object = function(config, scene, assetsManager, shadowGenerator){
      */
     function OnLoader(task) {
         console.log("mesh loaded");
-
-        var rotation = _config.rotation * Math.PI / 180;
+        
+        var rotation = (_config.rotation + 90) * Math.PI / 180;
 
         _mesh = task.loadedMeshes[0];
-        _mesh.position = new BABYLON.Vector3(-_config.position.x * 4, 0, _config.position.y * 4);
+        _mesh.position = new BABYLON.Vector3(_config.position.y * 4, 0, _config.position.x * 4);
         _mesh.rotate(BABYLON.Axis.Y, rotation, BABYLON.Space.WORLD);
+
+        _position = {
+            x: _config.position.y,
+            y: config.position.x
+        }
     }
 
     /**

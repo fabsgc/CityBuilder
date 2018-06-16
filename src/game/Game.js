@@ -21,13 +21,6 @@ App.Game = function(){
     var _mapConfig = null;
 
     /**
-     * Map instance
-     * @type {Object}
-     * @private
-     */
-    var _map = null;
-
-    /**
      * Canvas instance
      * @type {Object}
      * @private
@@ -63,18 +56,46 @@ App.Game = function(){
     var _camera = null;
 
     /**
-     * Camera instance
+     * Objects list
      * @type {BABYLON.Mesh}
      * @private
      */
     var _objects = [];
 
     /**
-     * Shadow generator instance
-     * @type {BABYLON.ShadowGenerator}
+     * Camera instance
+     * @type {Object[]}
      * @private
      */
-    var _shadowGenerator = null;
+    var _freeSpace = [];
+
+    /**
+     * Canvas instance
+     * @type {GameState}
+     * @private
+     */
+    var _gameState = GameState.InGame;
+
+    /**
+     * Player instance
+     * @type {App.Player}
+     * @private
+     */
+    var _player = null;
+
+    /**
+     * Player instance
+     * @type {App.Hud}
+     * @private
+     */
+    var _hud = null;
+
+    /**
+     * Player instance
+     * @type {App.Menu}
+     * @private
+     */
+    var _menu = null;
 
     /**
      * @method App.Game#Init
@@ -91,12 +112,23 @@ App.Game = function(){
         _scene = new BABYLON.Scene(_engine);
         _assetsManager = new BABYLON.AssetsManager(_scene);
 
+        _player = new App.Player();
+        _player.Init();
+
+        _menu = new App.Menu();
+        _menu.Init();
+
+        _hud = new App.Hud();
+        _hud.Init();
+
         CreateScene();
 
-        _assetsManager.onFinish = function (tasks) {
+        /*_assetsManager.onFinish = function (tasks) {
             _assetsManager.useDefaultLoadingScreen = false;
             _engine.runRenderLoop(RenderLoop);
-        };
+        };*/
+
+        _engine.runRenderLoop(RenderLoop);
 
         window.addEventListener("resize", ResizeHandler);
     }
@@ -110,32 +142,58 @@ App.Game = function(){
         var ssao = new BABYLON.SSAORenderingPipeline('ssaopipeline', _scene, 0.75);
         _scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline("ssaopipeline", [_camera.GetCamera()]);
 
-        var ambient = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(1, -2, -1), _scene);
-        ambient.color = new BABYLON.Color3(0.98, 0.95, 0.8)
+        var ambient = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(1, -2, -0.5), _scene);
+        ambient.color = new BABYLON.Color3(0.98, 0.95, 0.7)
         ambient.shadowEnabled = true;
-        ambient.intensity = 2.5;
+        ambient.intensity = 3;
 
-        var light = new BABYLON.DirectionalLight("light", new BABYLON.Vector3(1, -2, -1), _scene);
+        var light = new BABYLON.DirectionalLight("light", new BABYLON.Vector3(-1, -2, 1), _scene);
         light.position = new BABYLON.Vector3(20, 40, -20);
-        light.color = new BABYLON.Color3(0.98, 0.95, 0.8)
+        light.color = new BABYLON.Color3(0.98, 0.95, 0.7)
         light.shadowEnabled = true;
         light.intensity = 1;
 
-        /*_shadowGenerator = new BABYLON.ShadowGenerator(1024, light);
-        _shadowGenerator.useBlurExponentialShadowMap = true;
-        _shadowGenerator.useKernelBlur = true;
-        _shadowGenerator.blurKernel = 64;*/
-
-        _mapConfig.forEach(function(element) {
+        /*_mapConfig.forEach(function(element) {
             var obj = new App.Object(element, _scene, _assetsManager, _shadowGenerator);
             obj.Init();
             _objects.push(obj);
-        });
+        });*/
 
-        _assetsManager.load();
+        //_assetsManager.load();
     }
 
     function RenderLoop() {
+        switch(_gameState) {
+            case GameState.InGame:
+                if(_player.IsAlive()) {
+                    _player.Update();
+                    _hud.Update();
+
+                    _hud.Draw();
+                }
+                else {
+                    _hud.Clear();
+                }
+            break;
+
+            case GameState.InMenu:
+                _menu.Update();
+                _menu.Draw();
+            break;
+
+            case GameState.Lose:
+                _hud.Clear();
+                _menu.Clear();
+            break;
+        }
+
+        if(_player.IsAlive()) {
+            _player.Update();
+        }
+        else {
+            //TODO : Lose
+        }
+
         _scene.render();
     }
 

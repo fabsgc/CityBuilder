@@ -16,8 +16,10 @@ requirejs([
     'game/Game',
     'game/Camera',
     'game/Player',
-    'game/World',
-    'game/Object'
+    'game/Object',
+    'game/Hud',
+    'game/Menu',
+    'game/State'
 ], function () {
     var game = new App.Game();
     game.Init();

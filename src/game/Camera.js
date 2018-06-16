@@ -36,11 +36,10 @@ App.Camera = function(scene){
     this.Init = function() {
         _canvas = document.getElementById("render");
 
-        _camera = new BABYLON.ArcRotateCamera("Camera", Math.PI/4, Math.PI/4, 150, BABYLON.Vector3.Zero(), _scene);
-        _camera.position = new BABYLON.Vector3(50,20,50);
+        _camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI/6, Math.PI/4, 300, new BABYLON.Vector3(100, 0, 150), _scene);
         
-	    _camera.lowerRadiusLimit = 75;
-        _camera.upperRadiusLimit = 300;
+	    _camera.lowerRadiusLimit = 50;
+        _camera.upperRadiusLimit = 500;
         
         _camera.inputs.clear();
         _camera.inputs.addMouseWheel();
@@ -141,23 +140,23 @@ App.CameraKeyboardMoveInput.prototype.checkInputs = function () {
         for (var index = 0; index < this._keys.length; index++) {
             var keyCode = this._keys[index];
             if (this.keysLeft.indexOf(keyCode) !== -1) {
-                target.x += this.sensibility;
                 target.z -= this.sensibility;
+                target.x -= this.sensibility * 0.58;
                 camera.setTarget(target);
             }
             else if (this.keysRight.indexOf(keyCode) !== -1) {
-                target.x -= this.sensibility;
                 target.z += this.sensibility;
+                target.x += this.sensibility * 0.58;
                 camera.setTarget(target);
             }
             else if (this.keysUp.indexOf(keyCode) !== -1) {
                 target.x -= this.sensibility;
-                target.z -= this.sensibility;
+                target.z += this.sensibility * 0.58;
                 camera.setTarget(target);
             }
             else if (this.keysDown.indexOf(keyCode) !== -1) {
                 target.x += this.sensibility;
-                target.z += this.sensibility;
+                target.z -= this.sensibility * 0.58;
                 camera.setTarget(target);
             }
         }

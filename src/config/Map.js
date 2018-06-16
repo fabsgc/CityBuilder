@@ -1155,20 +1155,6 @@ App.Config.Map = [
         "model": "Road-4",
         "modelDirectory": "asset/model/Road/",
         "position": {
-            "x": 25,
-            "y": 40
-        },
-        "rotation": 90,
-        "token": "cb5e2818-c537-6830-fb3f-ce2b776185c7"
-    },
-    {
-        "id": "road-4",
-        "width": 5,
-        "height": 5,
-        "material": "Road-4",
-        "model": "Road-4",
-        "modelDirectory": "asset/model/Road/",
-        "position": {
             "x": 20,
             "y": 40
         },
@@ -1925,20 +1911,6 @@ App.Config.Map = [
         "model": "Grass",
         "modelDirectory": "asset/model/Nature/",
         "position": {
-            "x": 25,
-            "y": 20
-        },
-        "rotation": 0,
-        "token": "b6b3d6da-ff80-06b5-48b9-133478a0363e"
-    },
-    {
-        "id": "grass-1",
-        "width": 5,
-        "height": 5,
-        "material": "Grass-1",
-        "model": "Grass",
-        "modelDirectory": "asset/model/Nature/",
-        "position": {
             "x": 15,
             "y": 25
         },
@@ -1967,20 +1939,6 @@ App.Config.Map = [
         "model": "Grass",
         "modelDirectory": "asset/model/Nature/",
         "position": {
-            "x": 25,
-            "y": 25
-        },
-        "rotation": 0,
-        "token": "599195e9-f0d8-5539-d27c-fd4466d06da0"
-    },
-    {
-        "id": "grass-1",
-        "width": 5,
-        "height": 5,
-        "material": "Grass-1",
-        "model": "Grass",
-        "modelDirectory": "asset/model/Nature/",
-        "position": {
             "x": 30,
             "y": 25
         },
@@ -2000,20 +1958,6 @@ App.Config.Map = [
         },
         "rotation": 0,
         "token": "2bb8303a-3fc8-dbbd-4940-1fbdf049e354"
-    },
-    {
-        "id": "grass-1",
-        "width": 5,
-        "height": 5,
-        "material": "Grass-1",
-        "model": "Grass",
-        "modelDirectory": "asset/model/Nature/",
-        "position": {
-            "x": 25,
-            "y": 30
-        },
-        "rotation": 0,
-        "token": "56fae926-54ab-a652-26d2-d562aa7e7634"
     },
     {
         "id": "grass-1",
@@ -2084,20 +2028,6 @@ App.Config.Map = [
         },
         "rotation": 0,
         "token": "68ff36b9-f74e-a4df-d886-338a1e3ec839"
-    },
-    {
-        "id": "grass-1",
-        "width": 5,
-        "height": 5,
-        "material": "Grass-1",
-        "model": "Grass",
-        "modelDirectory": "asset/model/Nature/",
-        "position": {
-            "x": 25,
-            "y": 35
-        },
-        "rotation": 0,
-        "token": "116e1b43-0973-1ead-1eee-5649ed5669c5"
     },
     {
         "id": "grass-1",
@@ -2476,5 +2406,131 @@ App.Config.Map = [
         },
         "rotation": 180,
         "token": "1a4e0fef-3852-045f-a2a9-5e7ae4f3d0ca"
+    },
+    {
+        "id": "road-7",
+        "width": 5,
+        "height": 5,
+        "material": "Road-7",
+        "model": "Road-7",
+        "modelDirectory": "asset/model/Road/",
+        "position": {
+            "x": 25,
+            "y": 40
+        },
+        "rotation": 180,
+        "token": "a68d1729-cbc4-20d1-1d8a-327edfca8b83"
+    },
+    {
+        "id": "road-4",
+        "width": 5,
+        "height": 5,
+        "material": "Road-4",
+        "model": "Road-4",
+        "modelDirectory": "asset/model/Road/",
+        "position": {
+            "x": 25,
+            "y": 35
+        },
+        "rotation": 0,
+        "token": "4110f471-2a4e-7514-f24e-b1583c42a86b"
+    },
+    {
+        "id": "road-4",
+        "width": 5,
+        "height": 5,
+        "material": "Road-4",
+        "model": "Road-4",
+        "modelDirectory": "asset/model/Road/",
+        "position": {
+            "x": 25,
+            "y": 30
+        },
+        "rotation": 0,
+        "token": "b0306cce-ba17-8f79-ced9-4e9a84c54303"
+    },
+    {
+        "id": "road-4",
+        "width": 5,
+        "height": 5,
+        "material": "Road-4",
+        "model": "Road-4",
+        "modelDirectory": "asset/model/Road/",
+        "position": {
+            "x": 25,
+            "y": 25
+        },
+        "rotation": 0,
+        "token": "8ba36b8f-9831-a09e-84ca-271d105083a9"
+    },
+    {
+        "id": "road-5",
+        "width": 5,
+        "height": 5,
+        "material": "Road-5",
+        "model": "Road-5",
+        "modelDirectory": "asset/model/Road/",
+        "position": {
+            "x": 25,
+            "y": 20
+        },
+        "rotation": 0,
+        "token": "b059de14-0589-9772-ed43-35c8c72efcf1"
+    },
+    {
+        "id": "building-1",
+        "width": 5,
+        "height": 5,
+        "material": "Building-1",
+        "model": "Building-1",
+        "modelDirectory": "asset/model/Building/",
+        "position": {
+            "x": 30,
+            "y": 25
+        },
+        "rotation": 90,
+        "token": "daeb3f3e-9747-7246-5d16-f47f06ad3f58"
+    },
+    {
+        "id": "building-3",
+        "width": 5,
+        "height": 5,
+        "material": "Building-3",
+        "model": "Building-3",
+        "modelDirectory": "asset/model/Building/",
+        "position": {
+            "x": 30,
+            "y": 20
+        },
+        "rotation": 180,
+        "token": "29ced3dd-71fe-ccc1-570f-0b297e4c8b1a"
+    },
+    {
+        "id": "building-1",
+        "width": 5,
+        "height": 5,
+        "material": "Building-1",
+        "model": "Building-1",
+        "modelDirectory": "asset/model/Building/",
+        "position": {
+            "x": 30,
+            "y": 30
+        },
+        "rotation": 90,
+        "token": "43d9f0a2-5370-e695-3114-8accc086f90a"
+    },
+    {
+        "id": "building-2",
+        "width": 5,
+        "height": 5,
+        "material": "Building-2",
+        "model": "Building-2",
+        "modelDirectory": "asset/model/Building/",
+        "position": {
+            "x": 30,
+            "y": 35
+        },
+        "rotation": 0,
+        "token": "6ccd26ac-4d0f-d128-c0f6-eb45415f7c47"
     }
 ]

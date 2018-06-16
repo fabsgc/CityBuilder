@@ -36,10 +36,10 @@ App.Camera = function(scene){
     this.Init = function() {
         _canvas = document.getElementById("render");
 
-        _camera = new BABYLON.ArcRotateCamera("Camera", Math.PI/4, Math.PI/4, 150, new BABYLON.Vector3(0, 0, 0), _scene);
-        _camera.setTarget(BABYLON.Vector3.Zero());
-	    _camera.lowerRadiusLimit = 50;
-        _camera.upperRadiusLimit = 250;
+        _camera = new BABYLON.ArcRotateCamera("Camera", Math.PI/4, Math.PI/4, 150, BABYLON.Vector3.Zero(), _scene);
+        
+	    _camera.lowerRadiusLimit = 75;
+        _camera.upperRadiusLimit = 300;
         
         _camera.inputs.clear();
         _camera.inputs.addMouseWheel();

@@ -1,6 +1,6 @@
 # Blender v2.78 (sub 0) OBJ File: 'Grass.blend'
 # www.blender.org
-mtllib Grass.mtl
+mtllib Water.mtl
 o Plane.006
 v -10.000000 0.010132 -10.000000
 v -10.000000 0.010132 10.000000

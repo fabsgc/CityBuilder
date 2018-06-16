@@ -102,20 +102,24 @@ App.Game = function(){
     }
 
     function CreateScene() {
+        _scene.clearColor = new BABYLON.Color3(0.64, 0.77, 0.99);
+
         _camera = new App.Camera(_scene);
         _camera.Init();
 
         var ssao = new BABYLON.SSAORenderingPipeline('ssaopipeline', _scene, 0.75);
         _scene.postProcessRenderPipelineManager.attachCamerasToRenderPipeline("ssaopipeline", [_camera.GetCamera()]);
 
-        var ambient = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(-1, -2, -11), _scene);
+        var ambient = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(1, -2, -1), _scene);
+        ambient.color = new BABYLON.Color3(0.98, 0.95, 0.8)
         ambient.shadowEnabled = true;
-        ambient.intensity = 1.5;
+        ambient.intensity = 2.5;
 
-        /*var light = new BABYLON.DirectionalLight("light", new BABYLON.Vector3(-1, -2, -1), _scene);
+        var light = new BABYLON.DirectionalLight("light", new BABYLON.Vector3(1, -2, -1), _scene);
         light.position = new BABYLON.Vector3(20, 40, -20);
+        light.color = new BABYLON.Color3(0.98, 0.95, 0.8)
         light.shadowEnabled = true;
-        light.intensity = 3;*/
+        light.intensity = 1;
 
         /*_shadowGenerator = new BABYLON.ShadowGenerator(1024, light);
         _shadowGenerator.useBlurExponentialShadowMap = true;

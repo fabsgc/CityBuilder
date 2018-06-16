@@ -10,4 +10,5 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd C:\\Users\\FBEAUJEAN\\Documents\\Other\\EersteGraphicEngine\\EersteGraphicEngine\\bin64\\Data\\Texture\\City\\Stuff\\WindTurbine.png
+map_Kd ..\..\texture\Stuff\WindTurbine-diffuse.png
+map_Ks ..\..\texture\Stuff\WindTurbine-specular.png

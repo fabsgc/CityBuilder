@@ -77,10 +77,10 @@ App.Object = function(config, scene, assetsManager, shadowGenerator){
     function OnLoader(task) {
         console.log("mesh loaded");
 
-        var rotation = -_config.rotation * Math.PI / 180;
+        var rotation = _config.rotation * Math.PI / 180;
 
         _mesh = task.loadedMeshes[0];
-        _mesh.position = new BABYLON.Vector3(_config.position.x * 4, 0, _config.position.y * 4);
+        _mesh.position = new BABYLON.Vector3(-_config.position.x * 4, 0, _config.position.y * 4);
         _mesh.rotate(BABYLON.Axis.Y, rotation, BABYLON.Space.WORLD);
     }
 

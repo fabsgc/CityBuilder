@@ -37,6 +37,7 @@ App.Camera = function(scene){
         _canvas = document.getElementById("render");
 
         _camera = new BABYLON.ArcRotateCamera("Camera", Math.PI/4, Math.PI/4, 150, BABYLON.Vector3.Zero(), _scene);
+        _camera.position = new BABYLON.Vector3(50,20,50);
         
 	    _camera.lowerRadiusLimit = 75;
         _camera.upperRadiusLimit = 300;

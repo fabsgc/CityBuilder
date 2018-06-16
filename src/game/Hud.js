@@ -22,7 +22,7 @@ App.Hud = function(){
     var _gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
     /**
-     * GuiElements
+     * Gui elements
      * @type {Objcet}
      * @private
      */
@@ -92,7 +92,7 @@ App.Hud = function(){
         _elements.temperature.top  = "96px";
         _elements.temperature.fontSize = 45;
         _elements.temperature.color = "white";
-        _elements.temperature.text = "0°";
+        _elements.temperature.text = "+0°c";
         _gui.addControl(_elements.temperature);
     }
 
@@ -102,7 +102,12 @@ App.Hud = function(){
      * @public
      * @return {void}
      */
-    this.Update = function(player) { 
+    this.Update = function(player) {
+        var money = player.GetMoney().toFixed(1).toString();
+        var temperature = player.GetTemperature().toFixed(1).toString();
+
+        _elements.money.text = money + " M";
+        _elements.temperature.text = "+" + temperature + "°c";
     }
 
     /**

@@ -74,7 +74,7 @@ App.Game = function(){
      * @type {GameState}
      * @private
      */
-    var _gameState = GameState.InGame;
+    var _gameState = GameState.InMenu;
 
     /**
      * Player instance
@@ -184,10 +184,11 @@ App.Game = function(){
             break;
 
             case GameState.InMenu:
+                _hud.Update(_player);
+                _hud.Draw();
+
                 _menu.Update(_player);
                 _menu.Draw();
-
-                _hud.Clear();
             break;
 
             case GameState.Lose:

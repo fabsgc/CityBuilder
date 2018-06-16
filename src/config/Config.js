@@ -1,0 +1,2 @@
+App.Config.Game = {
+}

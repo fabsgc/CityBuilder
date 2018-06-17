@@ -60,6 +60,10 @@ App.Menu = function(player){
      * @return {void}
      */
     this.Init = function() {
+        window.addEventListener("purchase", PurchaseHandler);
+        window.addEventListener("drawDescription", DrawDescriptionHandler);
+        window.addEventListener("clearDescription", ClearDescriptionHandler);
+
         console.log("GUI menu loaded");
 
         _elements.container = new BABYLON.GUI.Rectangle("container");
@@ -141,13 +145,11 @@ App.Menu = function(player){
         _elements.body.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         _elements.container.addControl(_elements.body);
 
-        _elements.footer = new BABYLON.GUI.Grid("footer");
+        _elements.footer = new BABYLON.GUI.Rectangle("footer");
         _elements.footer.background = "black";
         _elements.footer.alpha = 0.5;
-        _elements.footer.addColumnDefinition(30, true);
-        _elements.footer.addColumnDefinition(30, true);
-        _elements.footer.addColumnDefinition(30, true);
         _elements.footer.height = "150px";
+        _elements.footer.wdih = "100%";
         _elements.footer.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         _elements.footer.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
         _elements.container.addControl(_elements.footer);
@@ -283,7 +285,7 @@ App.Menu = function(player){
      * @return {BABLON.GUI.Rectangle}
      */
     function CreateSkillElement(skill) {
-        var element = new BABYLON.GUI.Grid("skill-" + skill.id);
+        var element = new BABYLON.GUI.Grid("skill-" + skill.id.toString());
         element.color = "black";
         element.alpha = 1;
         element.addColumnDefinition(30);
@@ -296,12 +298,40 @@ App.Menu = function(player){
 
         if(CheckIsPurchased(skill)) {
             element.background = "#c9d7ef";
+
+            if(CheckIsPurchasable(skill)) {
+                element.onPointerClickObservable.add(function(s) {
+                    var event = new CustomEvent("purchase", {
+                        detail: s
+                    });
+                    window.dispatchEvent(event);
+                }(skill));
+            }
         }
         else {
             element.background = "#8da7d3";
         }
 
-        var elementLogo = new BABYLON.GUI.Image("skill-" + skill.id + "-logo", skill.logo);
+        var event = new CustomEvent("drawDescription", {
+            detail: skill
+        });
+        window.dispatchEvent(event);
+
+        /*element.onPointerEnterObservable.add(function(s) {
+            var event = new CustomEvent("drawDescription", {
+                detail: s
+            });
+            window.dispatchEvent(event);
+        }(skill));*/
+
+        /*element.onPointerOutObservable.add(function(s) {
+            var event = new CustomEvent("clearDescription", {
+                detail: s
+            });
+            window.dispatchEvent(event);
+        }(skill));*/
+
+        /*var elementLogo = new BABYLON.GUI.Image("skill-" + skill.id.toString() + "-logo", skill.logo);
         elementLogo.width = "64px";
         elementLogo.height = "64px";
         elementLogo.stretch = BABYLON.GUI.Image.STRETCH_NONE;
@@ -309,19 +339,19 @@ App.Menu = function(player){
         elementLogo.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
         element.addControl(elementLogo, 0, 0);
 
-        var elementName = new BABYLON.GUI.TextBlock("skill-" + skill.id + "-name");
+        var elementName = new BABYLON.GUI.TextBlock("skill-" + skill.id.toString() + "-name");
         elementName.text = skill.name;
         elementName.color = "white";
-        elementName.fontSize = 25;
+        elementName.fontSize = 20;
         elementName.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         elementName.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
         element.addControl(elementName, 0, 1);
 
-        var elementPrice = new BABYLON.GUI.TextBlock("skill-" + skill.id + "-price");
+        var elementPrice = new BABYLON.GUI.TextBlock("skill-" + skill.id.toString() + "-price");
         elementPrice.text = skill.price.toString() + "M $";
         elementPrice.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         elementPrice.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
-        elementPrice.fontSize = 35;
+        elementPrice.fontSize = 25;
         
         if(CheckIsPurchased(skill)) {
             elementPrice.color = "black";
@@ -334,7 +364,7 @@ App.Menu = function(player){
             elementPrice.color = "#721d0a";
         }
 
-        element.addControl(elementPrice, 0, 2);
+        element.addControl(elementPrice, 0, 2);*/
 
         return element;
     }
@@ -350,12 +380,48 @@ App.Menu = function(player){
     }
 
     /**
-     * @method App.Menu#CreateSkillElemnt
+     * @method App.Menu#DrawDescriptionHandler
      * @param {CustomEvent} e
      * @private
      * @return {void}
      */
     function DrawDescriptionHandler(e) {
-        console.log(e.detail.skill);
+        console.log(e.detail);
+
+        if(e.detail) {
+            _elements.footerText = new BABYLON.GUI.TextBlock("skill-" + e.detail.id.toString() + "-description");
+            _elements.footerText.text = e.detail.description;
+            _elements.footerText.left = "10px";
+            _elements.footerText.width = "100%";
+            _elements.footerText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+            _elements.footerText.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+            _elements.footerText.fontSize = 30;
+    
+            _elements.footer.addControl(_elements.footerText);
+        }
+    }
+
+    /**
+     * @method App.Menu#ClearDescriptionHandler
+     * @param {CustomEvent} e
+     * @private
+     * @return {void}
+     */
+    function ClearDescriptionHandler(e) {
+        console.log(e.detail);
+
+        if(_elements.footerText) {
+            _elements.footer.removeControl(_elements.footerText);
+        }
+    }
+
+    /**
+     * @method App.Menu#PurchaseHandler
+     * @param {CustomEvent} e
+     * @private
+     * @return {void}
+     */
+    function PurchaseHandler(e) {
+        console.log(e.detail);
     }
 }

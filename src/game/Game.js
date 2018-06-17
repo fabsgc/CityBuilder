@@ -184,8 +184,6 @@ App.Game = function(){
             break;
 
             case GameState.InMenu:
-                _player.Update();
-
                 _hud.Update(_player);
                 _hud.Draw();
 

@@ -122,26 +122,24 @@ App.Menu = function(player){
         _elements.header.addControl(_elements.headerEconomy, 0, 2);
 
         _elements.headerEconomyText = new BABYLON.GUI.TextBlock("headerEconomyText");
-        _elements.headerEconomyText.text = "Gouvernance";
+        _elements.headerEconomyText.text = "Economie";
         _elements.headerEconomyText.color = "white";
         _elements.headerEconomyText.fontSize = 45;
         _elements.headerEconomy.addControl(_elements.headerEconomyText);
 
         _elements.body = new BABYLON.GUI.Grid("body");
-        _elements.body.background = "black";
-        _elements.body.alpha = 0.0;
         _elements.body.width = "98%";
-        _elements.body.height = "450px";
+        _elements.body.height = "360px";
         _elements.body.top = "95px";
-        _elements.body.addColumnDefinition(33.33, true);
-        _elements.body.addColumnDefinition(33.33, true);
-        _elements.body.addColumnDefinition(33.33, true);
-        _elements.body.addRowDefinition("150px");
-        _elements.body.addRowDefinition("150px");
-        _elements.body.addRowDefinition("150px");
+        _elements.body.addColumnDefinition(33);
+        _elements.body.addColumnDefinition(34);
+        _elements.body.addColumnDefinition(33);
+        _elements.body.addRowDefinition(0.33);
+        _elements.body.addRowDefinition(0.33);
+        _elements.body.addRowDefinition(0.33);
         _elements.body.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         _elements.body.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        _elements.container.addControl(_elements.body); 
+        _elements.container.addControl(_elements.body);
 
         _elements.footer = new BABYLON.GUI.Grid("footer");
         _elements.footer.background = "black";
@@ -159,8 +157,10 @@ App.Menu = function(player){
         var row = 0;
         
         skills.forEach(function(skill) {
-            if(CheckSkillAvailable) {
+            if(CheckIsPurchased(skill) || CheckIsAvailable(skill)) {
                 var skillElement = CreateSkillElement(skill);
+
+                _elements.body.addControl(skillElement, row, col);
 
                 col = ++col % 3;
                 row = (col == 0) ? ++row : row;
@@ -218,16 +218,6 @@ App.Menu = function(player){
     }
 
     /**
-     * @method App.Menu#CheckSkillAvailable
-     * @param {Object} skill
-     * @private
-     * @return {boolean}
-     */
-    function CheckSkillAvailable(skill) {
-        return true;
-    }
-
-    /**
      * @method App.Menu#CheckIsPurchased
      * @param {Object} skill
      * @private
@@ -244,7 +234,7 @@ App.Menu = function(player){
     }
 
     /**
-     * @method App.Menu#CheckIsAvailable
+     * @method App.Menu#CheckIsPurchasable
      * @param {Object} skill
      * @private
      * @return {boolean}
@@ -264,6 +254,10 @@ App.Menu = function(player){
      * @return {boolean}
      */
     function CheckIsAvailable(skill) {
+        if(skill.parents.length == 0) {
+            return true;
+        }
+
         var parentsNeeded = skill.parents;
         var currentParents = [];
 
@@ -289,11 +283,64 @@ App.Menu = function(player){
      * @return {BABLON.GUI.Rectangle}
      */
     function CreateSkillElement(skill) {
-        return null;
+        var element = new BABYLON.GUI.Grid("skill-" + skill.id);
+        element.color = "black";
+        element.alpha = 1;
+        element.addColumnDefinition(30);
+        element.addColumnDefinition(40);
+        element.addColumnDefinition(30);
+        element.width = "90%";
+        element.height = "100px";
+        element.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        element.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+
+        if(CheckIsPurchased(skill)) {
+            element.background = "#c9d7ef";
+        }
+        else {
+            element.background = "#8da7d3";
+        }
+
+        var elementLogo = new BABYLON.GUI.Image("skill-" + skill.id + "-logo", skill.logo);
+        elementLogo.width = "64px";
+        elementLogo.height = "64px";
+        elementLogo.stretch = BABYLON.GUI.Image.STRETCH_NONE;
+        elementLogo.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        elementLogo.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+        element.addControl(elementLogo, 0, 0);
+
+        var elementName = new BABYLON.GUI.TextBlock("skill-" + skill.id + "-name");
+        elementName.text = skill.name;
+        elementName.color = "white";
+        elementName.fontSize = 25;
+        elementName.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        elementName.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+        element.addControl(elementName, 0, 1);
+
+        var elementPrice = new BABYLON.GUI.TextBlock("skill-" + skill.id + "-price");
+        elementPrice.text = skill.price.toString() + "M $";
+        elementPrice.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        elementPrice.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+        elementPrice.fontSize = 35;
+        
+        if(CheckIsPurchased(skill)) {
+            elementPrice.color = "black";
+            elementPrice.text = "-";
+        }
+        else if(CheckIsPurchasable(skill)) {
+            elementPrice.color = "#2a5634";
+        }
+        else {
+            elementPrice.color = "#721d0a";
+        }
+
+        element.addControl(elementPrice, 0, 2);
+
+        return element;
     }
 
     /**
-     * @method App.Menu#CreateSkillElemnt
+     * @method App.Menu#CreateSkillDescriptionElement
      * @param {Object} skill
      * @private
      * @return {BABLON.GUI.Rectangle}

@@ -2,7 +2,8 @@ App.Config.Game = {
     skills: [
         {
             id: 1,
-            price: 10,
+            price: 5,
+            logo: "asset/gui/skill-blueprint.png",
             name: "Skill 1 name",
             descripion: "Skills 1 description",
             parents: [],
@@ -15,6 +16,7 @@ App.Config.Game = {
         {
             id: 2,
             price: 10,
+            logo: "asset/gui/skill-leaf.png",
             name: "Skill 2 name",
             descripion: "Skills 2 description",
             parents: [],
@@ -25,7 +27,8 @@ App.Config.Game = {
         },
         {
             id: 3,
-            price: 10,
+            price: 15,
+            logo: "asset/gui/skill-blueprint.png",
             name: "Skill 3 name",
             descripion: "Skills 3 description",
             parents: [],
@@ -36,7 +39,8 @@ App.Config.Game = {
         },
         {
             id: 4,
-            price: 10,
+            price: 20,
+            logo: "asset/gui/skill-leaf.png",
             name: "Skill 4 name",
             descripion: "Skills 4 description",
             bonus: 0.01,
@@ -49,7 +53,8 @@ App.Config.Game = {
         },
         {
             id: 5,
-            price: 10,
+            price: 25,
+            logo: "asset/gui/skill-blueprint.png",
             name: "Skill 5 name",
             descripion: "Skills 5 description",
             bonus: 0.01,
@@ -62,7 +67,8 @@ App.Config.Game = {
         },
         {
             id: 6,
-            price: 10,
+            price: 30,
+            logo: "asset/gui/skill-leaf.png",
             name: "Skill 6 name",
             descripion: "Skills 5 description",
             bonus: 0.01,
@@ -75,7 +81,8 @@ App.Config.Game = {
         },
         {
             id: 7,
-            price: 10,
+            price: 35,
+            logo: "asset/gui/skill-blueprint.png",
             name: "Skill 7 name",
             descripion: "Skills 7 description",
             bonus: 0.01,
@@ -88,7 +95,8 @@ App.Config.Game = {
         },
         {
             id: 8,
-            price: 10,
+            price: 40,
+            logo: "asset/gui/skill-leaf.png",
             name: "Skill 8 name",
             descripion: "Skills 8 description",
             bonus: 0.01,

@@ -12,7 +12,7 @@ App.Player = function(){
      * @type {number}
      * @private
      */
-    var _money = 0;
+    var _money = 1;
 
     /**
      * Temperature raising
@@ -117,6 +117,6 @@ App.Player = function(){
         _lastTime = time;
 
         _temperature += (deltaTime/1000) * _temperatureRaiseRate;
-        _money += (deltaTime/10) * _temperatureRaiseRate
+        _money += (deltaTime/25) * _temperatureRaiseRate
     }
 }

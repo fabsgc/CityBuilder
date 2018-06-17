@@ -26,7 +26,7 @@ App.Player = function(scene, assetsManager){
      * @type {number}
      * @private
      */
-    var _money = 100;
+    var _money = 9;
 
     /**
      * Temperature raising

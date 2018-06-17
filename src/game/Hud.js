@@ -111,11 +111,11 @@ App.Hud = function(){
      * @return {void}
      */
     this.Update = function(player) {
-        /*var money = player.GetMoney().toFixed(1).toString();
+        var money = player.GetMoney().toFixed(1).toString();
         var temperature = player.GetTemperature().toFixed(1).toString();
 
         _elements.money.text = money + " M";
-        _elements.temperature.text = "+" + temperature + "°c";*/
+        _elements.temperature.text = "+" + temperature + "°c";
     }
 
     /**

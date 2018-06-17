@@ -5,7 +5,7 @@ App.Config.Game = {
             price: 10,
             logo: "asset/gui/skill-blueprint.png",
             name: "Eolien",
-            description: "Avec ça grande hélice, cette éolienne va pouvoir produire de l'énergie électrique grâce à la force du vent.",
+            description: "Avec sa grande hélice, cette éolienne va pouvoir produire de l'énergie électrique grâce à la force du vent.",
             parents: [],
             bonus: 0.01,
             effects: [

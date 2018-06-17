@@ -62,6 +62,10 @@ App.Menu = function(player){
     this.Init = function() {
         console.log("GUI menu loaded");
 
+        window.addEventListener("purchase", PurchaseHandler);
+        window.addEventListener("drawDescription", DrawDescriptionHandler);
+        window.addEventListener("clearDescription", ClearDescriptionHandler);
+
         _elements.container = new BABYLON.GUI.Rectangle("container");
         _elements.container.adaptWidthToChildren = false;
         _elements.container.width = "75%";
@@ -71,10 +75,6 @@ App.Menu = function(player){
         _elements.container.cornerRadius = 10;
         _elements.container.tickness = 5;
         GUI.addControl(_elements.container);
-
-        window.addEventListener("purchase", PurchaseHandler);
-        window.addEventListener("drawDescription", DrawDescriptionHandler);
-        window.addEventListener("clearDescription", ClearDescriptionHandler);
 
         _elements.header = new BABYLON.GUI.Grid("header");
         _elements.header.background = "black";
@@ -153,9 +153,21 @@ App.Menu = function(player){
         _elements.footer.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
         _elements.container.addControl(_elements.footer);
 
+        DrawSkills();
+
+        //_elements.container.isVisible = false;
+    }
+
+    function DrawSkills(){
         var skills = App.Config.Game.skills;
         var col = 0;
         var row = 0;
+
+        _dynamicElements.forEach(function(element) {
+            _elements.body.removeControl(element);
+        });
+
+        _dynamicElements = [];
 
         skills.forEach(function(skill) {
             if(CheckIsPurchased(skill) || CheckIsAvailable(skill)) {
@@ -191,8 +203,6 @@ App.Menu = function(player){
                 row = (col == 0) ? ++row : row;
             }
         });
-
-        //_elements.container.isVisible = false;
     }
 
     /**
@@ -230,6 +240,10 @@ App.Menu = function(player){
      * @return {void}
      */
     this.SetState = function(state) {
+        if(_state == MenuState.Visible) {
+            DrawSkills();
+        }
+
         _menuState = state;
     }
 
@@ -249,11 +263,13 @@ App.Menu = function(player){
      * @return {boolean}
      */
     function CheckIsPurchased(skill) {
-        _player.GetSkills().forEach(function(s) {
-            if(s.id == skill.id) {
+        var skills = _player.GetSkills();
+
+        for(var i in skills) {
+            if(skills[i].id == skill.id) {
                 return true;
             }
-        });
+        }
 
         return false;
     }
@@ -349,7 +365,7 @@ App.Menu = function(player){
         elementPrice.fontSize = 25;
         
         if(CheckIsPurchased(skill)) {
-            elementPrice.color = "black";
+            elementPrice.color = "white";
             elementPrice.text = "-";
         }
         else if(CheckIsPurchasable(skill)) {
@@ -365,24 +381,12 @@ App.Menu = function(player){
     }
 
     /**
-     * @method App.Menu#CreateSkillDescriptionElement
-     * @param {Object} skill
-     * @private
-     * @return {BABLON.GUI.Rectangle}
-     */
-    function CreateSkillDescriptionElement(skill) {
-        return null;
-    }
-
-    /**
      * @method App.Menu#DrawDescriptionHandler
      * @param {CustomEvent} e
      * @private
      * @return {void}
      */
     function DrawDescriptionHandler(e) {
-        console.log(e.detail);
-
         if(e.detail) {
             _elements.footerText = new BABYLON.GUI.TextBlock("skill-" + e.detail.id.toString() + "-description");
             _elements.footerText.text = e.detail.description;
@@ -404,8 +408,6 @@ App.Menu = function(player){
      * @return {void}
      */
     function ClearDescriptionHandler(e) {
-        console.log(e.detail);
-
         if(_elements.footerText) {
             _elements.footer.removeControl(_elements.footerText);
         }
@@ -419,5 +421,7 @@ App.Menu = function(player){
      */
     function PurchaseHandler(e) {
         console.log(e.detail);
+        _player.AddSkill(e.detail);
+        DrawSkills();
     }
 }

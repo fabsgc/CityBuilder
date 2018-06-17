@@ -12,7 +12,7 @@ App.Player = function(){
      * @type {number}
      * @private
      */
-    var _money = 1;
+    var _money = 100;
 
     /**
      * Temperature raising
@@ -118,5 +118,9 @@ App.Player = function(){
 
         _temperature += (deltaTime/1000) * _temperatureRaiseRate;
         _money += (deltaTime/25) * _temperatureRaiseRate
+    }
+
+    this.AddSkill = function(skill) {
+        _skills.push(skill);
     }
 }

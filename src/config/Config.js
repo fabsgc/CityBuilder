@@ -111,7 +111,7 @@ App.Config.Game = {
             "width": 5,
             "height": 5,
             "model": "WindTurbine",
-            "modelDirectory": "asset/model/stuff/",
+            "modelDirectory": "asset/model/Stuff/",
             "position": {
                 "x": 0,
                 "y": 0
@@ -122,7 +122,7 @@ App.Config.Game = {
             "width": 2,
             "height": 1,
             "model": "Unicorn",
-            "modelDirectory": "asset/model/stuff/",
+            "modelDirectory": "asset/model/Stuff/",
             "position": {
                 "x": 0,
                 "y": 0

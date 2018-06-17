@@ -111,6 +111,7 @@ App.Game = function(){
         _engine = new BABYLON.Engine(_canvas, true);
         _scene = new BABYLON.Scene(_engine);
         _assetsManager = new BABYLON.AssetsManager(_scene);
+        GUI = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
         CreateScene();
 

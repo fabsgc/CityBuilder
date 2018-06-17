@@ -19,7 +19,7 @@ App.Menu = function(player){
      * @type {BABYLON.GUI.AdvancedDynamicTexture}
      * @private
      */
-    var _gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI", true);
+    //var _gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI-menu");
 
     /**
      * Player instance
@@ -60,10 +60,6 @@ App.Menu = function(player){
      * @return {void}
      */
     this.Init = function() {
-        window.addEventListener("purchase", PurchaseHandler);
-        window.addEventListener("drawDescription", DrawDescriptionHandler);
-        window.addEventListener("clearDescription", ClearDescriptionHandler);
-
         console.log("GUI menu loaded");
 
         _elements.container = new BABYLON.GUI.Rectangle("container");
@@ -74,8 +70,11 @@ App.Menu = function(player){
         _elements.container.alpha = 0.7;
         _elements.container.cornerRadius = 10;
         _elements.container.tickness = 5;
-        _elements.container.color = "white";
-        _gui.addControl(_elements.container);
+        GUI.addControl(_elements.container);
+
+        window.addEventListener("purchase", PurchaseHandler);
+        window.addEventListener("drawDescription", DrawDescriptionHandler);
+        window.addEventListener("clearDescription", ClearDescriptionHandler);
 
         _elements.header = new BABYLON.GUI.Grid("header");
         _elements.header.background = "black";
@@ -157,12 +156,36 @@ App.Menu = function(player){
         var skills = App.Config.Game.skills;
         var col = 0;
         var row = 0;
-        
+
         skills.forEach(function(skill) {
             if(CheckIsPurchased(skill) || CheckIsAvailable(skill)) {
                 var skillElement = CreateSkillElement(skill);
 
+                if(!CheckIsPurchased(skill) && CheckIsPurchasable(skill)) {
+                    skillElement.onPointerClickObservable.add((function() {
+                        var event = new CustomEvent("purchase", {
+                            detail: skill
+                        });
+                        window.dispatchEvent(event);
+                    }).bind(this));
+                }
+        
+                skillElement.onPointerEnterObservable.add((function() {
+                    var event = new CustomEvent("drawDescription", {
+                        detail: skill
+                    });
+                    window.dispatchEvent(event);
+                }).bind(this));
+        
+                skillElement.onPointerOutObservable.add((function() {
+                    var event = new CustomEvent("clearDescription", {
+                        detail: skill
+                    });
+                    window.dispatchEvent(event);
+                }).bind(this));
+
                 _elements.body.addControl(skillElement, row, col);
+                _dynamicElements.push(skillElement);
 
                 col = ++col % 3;
                 row = (col == 0) ? ++row : row;
@@ -298,40 +321,12 @@ App.Menu = function(player){
 
         if(CheckIsPurchased(skill)) {
             element.background = "#c9d7ef";
-
-            if(CheckIsPurchasable(skill)) {
-                element.onPointerClickObservable.add(function(s) {
-                    var event = new CustomEvent("purchase", {
-                        detail: s
-                    });
-                    window.dispatchEvent(event);
-                }(skill));
-            }
         }
         else {
             element.background = "#8da7d3";
         }
 
-        var event = new CustomEvent("drawDescription", {
-            detail: skill
-        });
-        window.dispatchEvent(event);
-
-        /*element.onPointerEnterObservable.add(function(s) {
-            var event = new CustomEvent("drawDescription", {
-                detail: s
-            });
-            window.dispatchEvent(event);
-        }(skill));*/
-
-        /*element.onPointerOutObservable.add(function(s) {
-            var event = new CustomEvent("clearDescription", {
-                detail: s
-            });
-            window.dispatchEvent(event);
-        }(skill));*/
-
-        /*var elementLogo = new BABYLON.GUI.Image("skill-" + skill.id.toString() + "-logo", skill.logo);
+        var elementLogo = new BABYLON.GUI.Image("skill-" + skill.id.toString() + "-logo", skill.logo);
         elementLogo.width = "64px";
         elementLogo.height = "64px";
         elementLogo.stretch = BABYLON.GUI.Image.STRETCH_NONE;
@@ -364,7 +359,7 @@ App.Menu = function(player){
             elementPrice.color = "#721d0a";
         }
 
-        element.addControl(elementPrice, 0, 2);*/
+        element.addControl(elementPrice, 0, 2);
 
         return element;
     }
@@ -391,11 +386,12 @@ App.Menu = function(player){
         if(e.detail) {
             _elements.footerText = new BABYLON.GUI.TextBlock("skill-" + e.detail.id.toString() + "-description");
             _elements.footerText.text = e.detail.description;
-            _elements.footerText.left = "10px";
+            _elements.footerText.left = "30px";
             _elements.footerText.width = "100%";
             _elements.footerText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
             _elements.footerText.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
-            _elements.footerText.fontSize = 30;
+            _elements.footerText.fontSize = 22;
+            _elements.footerText.color = "white";
     
             _elements.footer.addControl(_elements.footerText);
         }

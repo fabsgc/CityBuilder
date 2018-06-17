@@ -5,7 +5,7 @@ App.Config.Game = {
             price: 10,
             logo: "asset/gui/skill-blueprint.png",
             name: "Eolien",
-            descripion: "Avec ça grande hélice, cette éolienne va pouvoir produire de l'énergie électrique grâce à la force du vent.",
+            description: "Avec ça grande hélice, cette éolienne va pouvoir produire de l'énergie électrique grâce à la force du vent.",
             parents: [],
             bonus: 0.01,
             effects: [
@@ -18,7 +18,7 @@ App.Config.Game = {
             price: 999,
             logo: "asset/gui/skill-blueprint.png",
             name: "Solaire",
-            descripion: "Grâce à sa surface orientée vers le soleil, cet appareil converti le rayonnement en énergie électrique.",
+            description: "Grâce à sa surface orientée vers le soleil, cet appareil converti le rayonnement en énergie électrique.",
             parents: [],
             bonus: 0.01,
             effects: [
@@ -29,7 +29,7 @@ App.Config.Game = {
             price: 999,
             logo: "asset/gui/skill-leaf.png",
             name: "Poubelle de tri",
-            descripion: "Grâce à un système de couleur, il devient plus facile pour le citoyen de savoir trier ses déchets.",
+            description: "Grâce à un système de couleur, il devient plus facile pour le citoyen de savoir trier ses déchets.",
             parents: [],
             bonus: 0.01,
             effects: [
@@ -40,7 +40,7 @@ App.Config.Game = {
             price: 999,
             logo: "asset/gui/skill-blueprint.png",
             name: "Plus adaptée aux bâtiments, cette éolienne capte des vents plus faibles ce qui lui permet d'être plus fréquemment exploitée.",
-            descripion: "Skills 4 description",
+            description: "Skills 4 description",
             bonus: 0.03,
             parents: [
                 1
@@ -54,7 +54,7 @@ App.Config.Game = {
             price: 25,
             logo: "asset/gui/skill-blueprint.png",
             name: "Skill 5 name",
-            descripion: "Skills 5 description",
+            description: "Skills 5 description",
             bonus: 0.01,
             parents: [
                 1
@@ -68,7 +68,7 @@ App.Config.Game = {
             price: 30,
             logo: "asset/gui/skill-leaf.png",
             name: "Skill 6 name",
-            descripion: "Skills 5 description",
+            description: "Skills 5 description",
             bonus: 0.01,
             parents: [
                 1, 2
@@ -82,7 +82,7 @@ App.Config.Game = {
             price: 35,
             logo: "asset/gui/skill-blueprint.png",
             name: "Skill 7 name",
-            descripion: "Skills 7 description",
+            description: "Skills 7 description",
             bonus: 0.01,
             parents: [
                 2, 3
@@ -96,7 +96,7 @@ App.Config.Game = {
             price: 40,
             logo: "asset/gui/skill-leaf.png",
             name: "Skill 8 name",
-            descripion: "Skills 8 description",
+            description: "Skills 8 description",
             bonus: 0.01,
             parents: [
                 3

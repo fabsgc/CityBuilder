@@ -19,11 +19,11 @@ App.Hud = function(){
      * @type {BABYLON.GUI.AdvancedDynamicTexture}
      * @private
      */
-    var _gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+    //var _gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
     /**
      * Gui elements
-     * @type {Objcet}
+     * @type {Object}
      * @private
      */
     var _elements = {
@@ -41,7 +41,47 @@ App.Hud = function(){
      */
     this.Init = function() {
         console.log("GUI hud loaded");
-        var gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+        _elements.moneyLogo = new BABYLON.GUI.Image("money-logo", "asset/gui/money_64.png");
+        _elements.moneyLogo.width = "64px";
+        _elements.moneyLogo.height = "64px";
+        _elements.moneyLogo.stretch = BABYLON.GUI.Image.STRETCH_EXTEND;
+        _elements.moneyLogo.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+        _elements.moneyLogo.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        _elements.moneyLogo.left  = "-10px";
+        _elements.moneyLogo.top  = "10px";
+        GUI.addControl(_elements.moneyLogo);
+
+        _elements.money = new BABYLON.GUI.TextBlock("money");
+        _elements.money.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+        _elements.money.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        _elements.money.left  = "-90px";
+        _elements.money.top  = "22px";
+        _elements.money.width = "100%";
+        _elements.money.fontSize = 45;
+        _elements.money.color = "white";
+        _elements.money.text = "0 M";
+        GUI.addControl(_elements.money);
+
+        _elements.temperatureLogo = new BABYLON.GUI.Image("temperature-logo", "asset/gui/thermometer_64.png");
+        _elements.temperatureLogo.width = "64px";
+        _elements.temperatureLogo.height = "64px";
+        _elements.temperatureLogo.stretch = BABYLON.GUI.Image.STRETCH_EXTEND;
+        _elements.temperatureLogo.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+        _elements.temperatureLogo.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        _elements.temperatureLogo.left  = "-10px";
+        _elements.temperatureLogo.top  = "90px";
+        GUI.addControl(_elements.temperatureLogo);
+
+        _elements.temperature = new BABYLON.GUI.TextBlock("temperature");
+        _elements.temperature.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+        _elements.temperature.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        _elements.temperature.left  = "-90px";
+        _elements.temperature.top  = "96px";
+        _elements.temperature.fontSize = 45;
+        _elements.temperature.color = "white";
+        _elements.temperature.text = "+0°c";
+        GUI.addControl(_elements.temperature);
 
         _elements.skills = new BABYLON.GUI.Image("skills", "asset/gui/search_128.png");
         _elements.skills.width = "128px";
@@ -61,47 +101,7 @@ App.Hud = function(){
                 window.dispatchEvent(event);
             }
         });
-        gui.addControl(_elements.skills);        
-
-        _elements.moneyLogo = new BABYLON.GUI.Image("money logo", "asset/gui/money_64.png");
-        _elements.moneyLogo.width = "64px";
-        _elements.moneyLogo.height = "64px";
-        _elements.moneyLogo.stretch = BABYLON.GUI.Image.STRETCH_EXTEND;
-        _elements.moneyLogo.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-        _elements.moneyLogo.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        _elements.moneyLogo.left  = "-10px";
-        _elements.moneyLogo.top  = "10px";
-        _gui.addControl(_elements.moneyLogo);
-
-        _elements.money = new BABYLON.GUI.TextBlock("money");
-        _elements.money.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-        _elements.money.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        _elements.money.left  = "-90px";
-        _elements.money.top  = "22px";
-        _elements.money.fontSize = 45;
-        _elements.money.color = "white";
-        _elements.money.text = "0 M";
-        _gui.addControl(_elements.money);
-
-        _elements.temperatureLogo = new BABYLON.GUI.Image("temperature", "asset/gui/thermometer_64.png");
-        _elements.temperatureLogo.width = "64px";
-        _elements.temperatureLogo.height = "64px";
-        _elements.temperatureLogo.stretch = BABYLON.GUI.Image.STRETCH_EXTEND;
-        _elements.temperatureLogo.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-        _elements.temperatureLogo.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        _elements.temperatureLogo.left  = "-10px";
-        _elements.temperatureLogo.top  = "90px";
-        _gui.addControl(_elements.temperatureLogo);
-
-        _elements.temperature = new BABYLON.GUI.TextBlock("temperature logo");
-        _elements.temperature.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-        _elements.temperature.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        _elements.temperature.left  = "-90px";
-        _elements.temperature.top  = "96px";
-        _elements.temperature.fontSize = 45;
-        _elements.temperature.color = "white";
-        _elements.temperature.text = "+0°c";
-        _gui.addControl(_elements.temperature);
+        GUI.addControl(_elements.skills);
     }
 
     /**
@@ -111,11 +111,11 @@ App.Hud = function(){
      * @return {void}
      */
     this.Update = function(player) {
-        var money = player.GetMoney().toFixed(1).toString();
+        /*var money = player.GetMoney().toFixed(1).toString();
         var temperature = player.GetTemperature().toFixed(1).toString();
 
         _elements.money.text = money + " M";
-        _elements.temperature.text = "+" + temperature + "°c";
+        _elements.temperature.text = "+" + temperature + "°c";*/
     }
 
     /**

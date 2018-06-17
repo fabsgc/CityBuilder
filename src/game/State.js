@@ -28,3 +28,5 @@ var HudState = {
     Hidden: 0,
     Visible: 1
 };
+
+var GUI = null;

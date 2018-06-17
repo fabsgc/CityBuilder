@@ -135,10 +135,8 @@ App.Game = function(){
             _engine.runRenderLoop(RenderLoop);
         };
 
-        //_engine.runRenderLoop(RenderLoop);
-
         window.addEventListener("resize", ResizeHandler);
-        //var music = new BABYLON.Sound("Music", "asset/sound/music.mp3", _scene, null, { loop: true, autoplay: true });
+        var music = new BABYLON.Sound("Music", "asset/sound/music.mp3", _scene, null, { loop: true, autoplay: true });
     }
 
     function CreateScene() {

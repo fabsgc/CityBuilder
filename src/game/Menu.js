@@ -15,13 +15,6 @@ App.Menu = function(player){
     var _menuState = MenuState.Hidden;
 
     /**
-     * GUI instance
-     * @type {BABYLON.GUI.AdvancedDynamicTexture}
-     * @private
-     */
-    //var _gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI-menu");
-
-    /**
      * Player instance
      * @type {App.Player}
      * @private
@@ -155,7 +148,7 @@ App.Menu = function(player){
 
         DrawSkills();
 
-        //_elements.container.isVisible = false;
+        _elements.container.isVisible = false;
     }
 
     function DrawSkills(){
@@ -221,7 +214,7 @@ App.Menu = function(player){
      * @return {void}
      */
     this.Draw = function() {
-        //_elements.container.isVisible = true;
+        _elements.container.isVisible = true;
     }
 
     /**
@@ -230,7 +223,7 @@ App.Menu = function(player){
      * @return {void}
      */
     this.Clear = function() {
-        //_elements.container.isVisible = false;
+        _elements.container.isVisible = false;
     }
 
     /**
@@ -240,7 +233,7 @@ App.Menu = function(player){
      * @return {void}
      */
     this.SetState = function(state) {
-        if(_state == MenuState.Visible) {
+        if(_menuState == MenuState.Visible) {
             DrawSkills();
         }
 
@@ -303,8 +296,6 @@ App.Menu = function(player){
         var currentParents = [];
 
         _player.GetSkills().forEach(function(s) {
-            var currentParents = [];
-
             if(parentsNeeded.indexOf(s.id) >= 0 && currentParents.indexOf(s.id) == -1) {
                 currentParents.push(s.id);
             }

@@ -5,7 +5,7 @@
  * @class App.Hud
  * @constructor
  */
-App.Hud = function(){
+App.Hud = function(player){
 
     /**
      * Hud state
@@ -15,11 +15,11 @@ App.Hud = function(){
     var _hudState = HudState.Visible;
 
     /**
-     * GUI instance
-     * @type {BABYLON.GUI.AdvancedDynamicTexture}
+     * Player instance
+     * @type {App.Player}
      * @private
      */
-    //var _gui = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+    var _player = player;
 
     /**
      * Gui elements
@@ -106,13 +106,12 @@ App.Hud = function(){
 
     /**
      * @method App.Hud#Update
-     * @param {App.Player} player
      * @public
      * @return {void}
      */
-    this.Update = function(player) {
-        var money = player.GetMoney().toFixed(1).toString();
-        var temperature = player.GetTemperature().toFixed(1).toString();
+    this.Update = function() {
+        var money = _player.GetMoney().toFixed(1).toString();
+        var temperature = _player.GetTemperature().toFixed(1).toString();
 
         _elements.money.text = money + " M";
         _elements.temperature.text = "+" + temperature + "°c";
@@ -127,11 +126,16 @@ App.Hud = function(){
     }
 
     /**
-     * @method App.Menu#Clear
+     * @method App.Hud#Clear
      * @public
      * @return {void}
      */
     this.Clear = function() {
+        for (var k in _elements){
+            if (_elements.hasOwnProperty(k)) {
+                _elements[k].isVisible = false;
+            }
+        }
     }
 
     /**

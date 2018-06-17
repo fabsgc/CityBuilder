@@ -63,13 +63,6 @@ App.Game = function(){
     var _objects = [];
 
     /**
-     * Camera instance
-     * @type {Object[]}
-     * @private
-     */
-    var _freeSpace = [];
-
-    /**
      * Canvas instance
      * @type {GameState}
      * @private
@@ -98,6 +91,13 @@ App.Game = function(){
     var _menu = null;
 
     /**
+     * Player instance
+     * @type {App.LooseScreen}
+     * @private
+     */
+    var _loose = null;
+
+    /**
      * @method App.Game#Init
      * @public
      * @return {void}
@@ -115,24 +115,27 @@ App.Game = function(){
 
         CreateScene();
 
-        _player = new App.Player();
+        _player = new App.Player(_scene, _assetsManager);
         _player.Init();
 
-        _hud = new App.Hud();
+        _hud = new App.Hud(_player);
         _hud.Init();
 
         _menu = new App.Menu(_player);
         _menu.Init();
 
+        _loose = new App.LooseScreen();
+        _loose.Init();
+
         window.addEventListener("openMenu", OpenMenuHandler);
         window.addEventListener("closeMenu", CloseMenuHandler);
 
-        /*_assetsManager.onFinish = function (tasks) {
+        _assetsManager.onFinish = function (tasks) {
             _assetsManager.useDefaultLoadingScreen = false;
             _engine.runRenderLoop(RenderLoop);
-        };*/
+        };
 
-        _engine.runRenderLoop(RenderLoop);
+        //_engine.runRenderLoop(RenderLoop);
 
         window.addEventListener("resize", ResizeHandler);
         //var music = new BABYLON.Sound("Music", "asset/sound/music.mp3", _scene, null, { loop: true, autoplay: true });
@@ -158,13 +161,13 @@ App.Game = function(){
         light.shadowEnabled = true;
         light.intensity = 1;
 
-        /*_mapConfig.forEach(function(element) {
+        _mapConfig.forEach(function(element) {
             var obj = new App.Object(element, _scene, _assetsManager);
             obj.Init();
             _objects.push(obj);
         });
 
-        _assetsManager.load();*/
+        _assetsManager.load();
     }
 
     function RenderLoop() {
@@ -173,7 +176,7 @@ App.Game = function(){
                 if(_player.IsAlive()) {
                     _player.Update();
 
-                    _hud.Update(_player);
+                    _hud.Update();
                     _hud.Draw();
 
                     _menu.Clear();
@@ -181,11 +184,12 @@ App.Game = function(){
                 else {
                     _hud.Clear();
                     _menu.Clear();
+                    _gameState = GameState.Lose;
                 }
             break;
 
             case GameState.InMenu:
-                _hud.Update(_player);
+                _hud.Update();
                 _hud.Draw();
 
                 _menu.Update();
@@ -193,6 +197,7 @@ App.Game = function(){
             break;
 
             case GameState.Lose:
+                _loose.Draw();
                 _hud.Clear();
                 _menu.Clear();
             break;

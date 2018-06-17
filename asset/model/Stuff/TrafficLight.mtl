@@ -20,4 +20,5 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd C:\\Users\\FABIEN\\Documents\\EersteGraphicEngine\\EersteGraphicEngine\\bin64\\Data\\Texture\\City\\Stuff\\TrafficLight-diffuse.png
+map_Kd ..\..\texture\Stuff\TrafficLight-diffuse.png
+map_Ks ..\..\texture\Stuff\TrafficLight-specular.png

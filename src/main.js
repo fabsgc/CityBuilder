@@ -19,6 +19,7 @@ requirejs([
     'game/Object',
     'game/Hud',
     'game/Menu',
+    'game/LooseScreen',
     'game/State'
 ], function () {
     var game = new App.Game();

@@ -5,7 +5,21 @@
  * @class App.Player
  * @constructor
  */
-App.Player = function(){
+App.Player = function(scene, assetsManager){
+
+    /**
+     * Scene instance
+     * @type {BABYLON.Scene}
+     * @private
+     */
+    var _scene = scene;
+
+    /**
+     * AssetsManager instance
+     * @type {BABYLON.AssetManager}
+     * @private
+     */
+    var _assetsManager = assetsManager;
 
     /**
      * Money amount
@@ -29,6 +43,13 @@ App.Player = function(){
     var _skills = []
 
     /**
+     * Effects to execute
+     * @type {Object[]}
+     * @private
+     */
+    var _effectsToExecute = []
+
+    /**
      * Temperature raising rate
      * @type {number}
      * @private
@@ -48,6 +69,23 @@ App.Player = function(){
      * @private
      */
     var _lastTime = 0;
+
+    /**
+     * Last executed effect
+     * @type {number}
+     * @private
+     */
+    var _lastExecutedEffect = 0;
+
+    /**
+     * Free space for new objects
+     * @type {Object[]}
+     * @private
+     */
+    var _freeSpace = [
+        {x: 16, y: 18},
+        {x: 19, y: 22}
+    ];
     
     /**
      * @method App.Player#Init
@@ -118,9 +156,75 @@ App.Player = function(){
 
         _temperature += (deltaTime/1000) * _temperatureRaiseRate;
         _money += (deltaTime/25) * _temperatureRaiseRate
+
+        if(_lastTime - _lastExecutedEffect > 5000) {
+            if(_effectsToExecute.length > 0) {
+                _lastExecutedEffect = _lastTime;
+
+                var effect = _effectsToExecute.pop();
+                
+                switch(effect) {
+                    case EffectType.Unicorn:
+                        DrawUnicorn();
+                    break;
+
+                    case EffectType.WindTurbine:
+                        DrawWindTurbine();
+                    break;
+                }
+            }
+        }
     }
 
+    /**
+     * @method App.Player#AddSkill
+     * @param {Object} skill
+     * @public
+     * @return {void}
+     */
     this.AddSkill = function(skill) {
         _skills.push(skill);
+        _money -= skill.price;
+
+        skill.effects.forEach(function(effect) {
+            _effectsToExecute.push(effect);
+        });
+        
+        _lastExecutedEffect = _lastTime;
+        _temperatureRaiseRate -= (skill.bonus * 0.05);
+    }
+
+    /**
+     * @method App.Player#DrawUnicorn
+     * @private
+     * @return {void}
+     */
+    function DrawUnicorn() {
+        if(_freeSpace.length > 0) {
+            var config = App.Config.Game.stuff.Windturbine;
+            config.position = _freeSpace.pop();
+
+            var obj = new App.Object(config, _scene, _assetsManager);
+            obj.Init();
+
+            _assetsManager.load();
+        }
+    }
+
+    /**
+     * @method App.Player#DrawWindTurbine
+     * @private
+     * @return {void}
+     */
+    function DrawWindTurbine () {
+        if(_freeSpace.length > 0) {
+            var config = App.Config.Game.stuff.Windturbine;
+            config.position = _freeSpace.pop();
+            
+            var obj = new App.Object(config, _scene, _assetsManager);
+            obj.Init();
+
+            _assetsManager.load();
+        }
     }
 }

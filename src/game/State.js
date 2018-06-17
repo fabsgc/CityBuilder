@@ -29,4 +29,14 @@ var HudState = {
     Visible: 1
 };
 
+/**
+ * Hud states enum
+ * @type {Object[]}
+ * @public
+ */
+var EffectType = {
+    Unicorn: "draw-unicorn",
+    WindTurbine: "draw-wind-turbine"
+};
+
 var GUI = null;

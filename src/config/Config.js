@@ -39,8 +39,8 @@ App.Config.Game = {
             id: 4,
             price: 999,
             logo: "asset/gui/skill-blueprint.png",
-            name: "Plus adaptée aux bâtiments, cette éolienne capte des vents plus faibles ce qui lui permet d'être plus fréquemment exploitée.",
-            description: "Skills 4 description",
+            name: "Eolienne verticale",
+            description: "Plus adaptée aux bâtiments, cette éolienne capte des vents plus faibles ce qui lui permet d'être plus fréquemment exploitée.",
             bonus: 0.03,
             parents: [
                 1
@@ -57,7 +57,7 @@ App.Config.Game = {
             description: "Skills 5 description",
             bonus: 0.01,
             parents: [
-                1
+                1, 2
             ],
             effects: [
                 "draw-wind-turbine"
@@ -111,13 +111,23 @@ App.Config.Game = {
             "width": 5,
             "height": 5,
             "model": "WindTurbine",
-            "modelDirectory": "asset/model/stuff/"
+            "modelDirectory": "asset/model/stuff/",
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0
         },
         Unicorn: {
             "width": 2,
             "height": 1,
             "model": "Unicorn",
-            "modelDirectory": "asset/model/stuff/"
+            "modelDirectory": "asset/model/stuff/",
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "rotation": 0
         }
     }
 }

@@ -29,7 +29,7 @@ App.Config.Game = {
             price: 999,
             logo: "asset/gui/skill-leaf.png",
             name: "Poubelle de tri",
-            description: "Grâce à un système de couleur, il devient plus facile pour le citoyen de savoir comment trier ses déchets.",
+            description: "Grâce à un système de couleur, il devient plus facile pour le citoyen de savoir trier ses déchets.",
             parents: [],
             bonus: 0.01,
             effects: [
